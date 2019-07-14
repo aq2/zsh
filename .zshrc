@@ -81,6 +81,7 @@
   alias blame='systemd-analyze blame'
   alias gvim='gvim --remote-tab-silent'
   alias la="ls -lha | sed -re 's/^[^ ]* //'"
+  alias sshaghar='ssh ayurvedi@shell.gridhost.co.uk'
   alias ls='ls --color=auto --group-directories-first'
   alias myvpn='sudo openvpn ~/Nextcloud/serva/dripvpn.ovpn'
   alias glog='git log --pretty="%Cgreen%h  %Cblue%ar%Creset  %s"'
@@ -98,13 +99,17 @@
   }
 
   color-ssh() {
-    trap "colorterm.sh" INT EXIT
+    trap "ssh-termcolor.sh" INT EXIT
     if [[ "$*" =~ "mickey" ]]; then
-        colorterm.sh mickey
+        ssh-termcolor.sh mickey
+    elif [[ "$*" =~ "think" ]]; then
+        ssh-termcolor.sh mickey
     elif [[ "$*" =~ "drip" ]]; then
-        colorterm.sh drip
+        ssh-termcolor.sh drip
+    elif [[ "$*" =~ "shell.gridhost.co.uk" ]]; then
+        ssh-termcolor.sh shell.gridhost.co.uk
     else
-        colorterm.sh foo
+        ssh-termcolor.sh foo
     fi
     'ssh' $*
   }
