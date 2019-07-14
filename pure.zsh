@@ -89,7 +89,7 @@ prompt_pure_preprompt_render() {
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
     # todo aq - improve this logic
     if [[ -n $prompt_pure_git_dirty ]]; then
-      local gc="yellow"
+      local gc="red"
     else
       local gc="blue"
     fi
