@@ -7,7 +7,7 @@
   HOSTNAME=$(hostname)
   export hostname=$HOSTNAME
   HISTFILE=~/.local/zsh_history
-  fpath=( "$HOME/.config/zsh" $fpath )
+  fpath=("$HOME/.config/zsh" $fpath)
   export PATH=$HOME/bin:$HOME/bin/color:/usr/local/bin:$PATH
 
   setopt autocd
@@ -60,7 +60,6 @@
 
 #  alias
   alias xx='exit'
-  # alias cat='bat'
   alias ..='cd ..'
   alias ll='ls -l'
   alias l.='ls -d .*'
@@ -74,7 +73,6 @@
   alias gcom='git commit -m'
   alias update='pkcon update'
   alias zeesh='source ~/.zshrc'
-  # alias update='sudo apt update'
   alias logmeout='pkill -u angelo'
   alias upgrade='sudo apt upgrade'
   alias upg='apt list --upgradable'
@@ -90,8 +88,7 @@
 # fancy functions
 
   take() {
-    mkdir -p $1
-    cd $1
+    mkdir -p $1; cd $1
   }
 
   se() {
@@ -113,7 +110,6 @@
     fi
     'ssh' $*
   }
-
   compdef _ssh color-ssh=ssh
 
  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
