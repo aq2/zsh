@@ -88,7 +88,7 @@
 
 # fancy functions
 
-  function take() {
+  take() {
     mkdir -p $1
     cd $1
   }
@@ -120,6 +120,7 @@
 
 #  hacked pure prompt
   autoload -U promptinit && promptinit
+	RPROMPT='%F{white}%*'
 	PURE_PROMPT_SYMBOL=
   prompt pure
   prompt_newline='%666v'

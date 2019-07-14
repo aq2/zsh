@@ -1,5 +1,4 @@
-# Pure
-# by Sindre Sorhus
+# Pure by Sindre Sorhus
 # https://github.com/sindresorhus/pure
 # MIT License
 # hacked nearly to death by angelo
@@ -9,6 +8,7 @@
 # %b => current branch
 # %a => current action (rebase/merge)
 # prompt:
+# %B/%b => bold
 # %F => color dict
 # %f => reset color
 # %~ => current path
@@ -16,13 +16,6 @@
 # %n => username
 # %m => shortname host
 # %(?..) => prompt conditional - %(condition.true.false)
-# terminal codes:
-# \e7   => save cursor position
-# \e[2A => move cursor 2 lines up
-# \e[1G => go to position 1 in terminal
-# \e8   => restore cursor position
-# \e[K  => clears everything after the cursor on the current line
-# \e[2K => clear everything on the current line
 
 
 # Turns seconds into human readable time.
@@ -56,8 +49,7 @@ prompt_pure_preexec() {
 		# Detect when Git is performing pull/fetch, including Git aliases.
 		local -H MATCH MBEGIN MEND match mbegin mend
 		if [[ $2 =~ (git|hub)\ (.*\ )?($prompt_pure_git_fetch_pattern)(\ .*)?$ ]]; then
-			# We must flush the async jobs to cancel our git fetch in order
-			# to avoid conflicts with the user issued pull / fetch.
+			# must flush async jobs to cancel git fetch else conflicts with user issued pull/fetch
 			async_flush_jobs 'prompt_pure'
 		fi
 	fi
@@ -75,13 +67,7 @@ prompt_pure_set_colors() {
 	local color_temp key value
 	for key value in ${(kv)prompt_pure_colors}; do
 		zstyle -t ":prompt:pure:$key" color "$value"
-		case $? in
-			1) # The current style is different from the one from zstyle.
-				zstyle -s ":prompt:pure:$key" color color_temp
-				prompt_pure_colors[$key]=$color_temp ;;
-			2) # No style is defined.
-				prompt_pure_colors[$key]=$prompt_pure_colors_default[$key] ;;
-		esac
+    prompt_pure_colors[$key]=$prompt_pure_colors_default[$key]
 	done
 }
 
@@ -96,21 +82,22 @@ prompt_pure_preprompt_render() {
 	local -a preprompt_parts
 
 	# Set the path - trims to ellipsis if over 15 charactrs aq
-	preprompt_parts+=('%F{${prompt_pure_colors[path]}}%15<...<%~%<<')
+	preprompt_parts+=('%B%F{${prompt_pure_colors[path]}}%15<…<%~%<<%f%b')
 
-	# Add Git branch and dirty status info.
+	# Add Git branch and dirty status info - aq
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
+    # todo aq - improve this logic
     if [[ -n $prompt_pure_git_dirty ]]; then
-      local gc="red"
+      local gc="yellow"
     else
-      local gc="green"
+      local gc="blue"
     fi
 
 	  if [[ "${prompt_pure_vcs_info[branch]}" == 'master' ]]; then
       preprompt_parts+=("%F{$gc}%f")
     else
-      preprompt_parts+=("%F{$gc}"'%f')
+      preprompt_parts+=("%F{$gc}%f")
     fi
 	fi
 
@@ -121,7 +108,8 @@ prompt_pure_preprompt_render() {
 
 	# Username and machine, if applicable.
 	[[ -n $prompt_pure_state[username] ]] && preprompt_parts+=($prompt_pure_state[username])
-	# Execution time.
+
+  # Execution time.
 	[[ -n $prompt_pure_cmd_exec_time ]] && preprompt_parts+=('%F{$prompt_pure_colors[execution_time]}${prompt_pure_cmd_exec_time}%f')
 
 	local cleaned_ps1=$PROMPT
@@ -360,7 +348,7 @@ prompt_pure_async_refresh() {
 prompt_pure_check_git_arrows() {
 	setopt localoptions noshwordsplit
 	local arrows left=${1:-0} right=${2:-0}
-  # ⯅ ⯆ ﮴ ﮵ ﰬ ﰵ ⮋ ⮉ 
+  # ⯅ ⯆  - aq
 	(( right > 0 )) && arrows+=${PURE_GIT_DOWN_ARROW:-⯆}
 	(( left > 0 )) && arrows+=${PURE_GIT_UP_ARROW:-⯅}
 
@@ -427,7 +415,7 @@ prompt_pure_async_callback() {
 				unset prompt_pure_git_dirty
 			else
 				typeset -g prompt_pure_git_dirty=" "
-				# typeset -g prompt_pure_git_dirty="*"
+				# typeset -g prompt_pure_git_dirty="*" - aq
 			fi
 
 			[[ $prev_dirty != $prompt_pure_git_dirty ]] && do_render=1
