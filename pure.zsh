@@ -95,14 +95,19 @@ prompt_pure_preprompt_render() {
 	# Initialize the preprompt array.
 	local -a preprompt_parts
 
-	# Set the path.
+	# Set the path - aq
 	preprompt_parts+=('%F{${prompt_pure_colors[path]}}%15<...<%~%<<')
 
 	# Add Git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		# preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}%f')
-		preprompt_parts+=("%F{$git_color}"'${prompt_pure_vcs_info[branch]}%F{red}${prompt_pure_git_dirty}%f')
+	  if [[ "${prompt_pure_vcs_info[branch]}" == 'master' ]]; then
+
+      preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}%f')
+    else
+      preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}%f')
+		# preprompt_parts+=("%F{$git_color}"'${prompt_pure_vcs_info[branch]}%F{red}${prompt_pure_git_dirty}%f')
+    fi
 	fi
 
 	# Git pull/push arrows.
@@ -417,7 +422,7 @@ prompt_pure_async_callback() {
 			if (( code == 0 )); then
 				unset prompt_pure_git_dirty
 			else
-				typeset -g prompt_pure_git_dirty=""
+				typeset -g prompt_pure_git_dirty=" "
 				# typeset -g prompt_pure_git_dirty="*"
 			fi
 
