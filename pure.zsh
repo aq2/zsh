@@ -95,18 +95,22 @@ prompt_pure_preprompt_render() {
 	# Initialize the preprompt array.
 	local -a preprompt_parts
 
-	# Set the path - aq
+	# Set the path - trims to ellipsis if over 15 charactrs aq
 	preprompt_parts+=('%F{${prompt_pure_colors[path]}}%15<...<%~%<<')
 
 	# Add Git branch and dirty status info.
 	typeset -gA prompt_pure_vcs_info
 	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-	  if [[ "${prompt_pure_vcs_info[branch]}" == 'master' ]]; then
-
-      preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}%f')
+    if [[ -n $prompt_pure_git_dirty ]]; then
+      local gc="red"
     else
-      preprompt_parts+=("%F{$git_color}"'${prompt_pure_git_dirty}%f')
-		# preprompt_parts+=("%F{$git_color}"'${prompt_pure_vcs_info[branch]}%F{red}${prompt_pure_git_dirty}%f')
+      local gc="green"
+    fi
+
+	  if [[ "${prompt_pure_vcs_info[branch]}" == 'master' ]]; then
+      preprompt_parts+=("%F{$gc}%f")
+    else
+      preprompt_parts+=("%F{$gc}"'%f')
     fi
 	fi
 
@@ -575,7 +579,7 @@ prompt_pure_setup() {
 	prompt_pure_colors_default=(
 		execution_time       yellow
 		git:arrow            red
-		git:branch           242
+		git:branch           green
 		git:branch:cached    red
 		host                 242
 		path                 blue
