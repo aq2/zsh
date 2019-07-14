@@ -362,7 +362,7 @@ prompt_pure_check_git_arrows() {
 	local arrows left=${1:-0} right=${2:-0}
   # ⯅ ⯆ ﮴ ﮵ ﰬ ﰵ ⮋ ⮉ 
 	(( right > 0 )) && arrows+=${PURE_GIT_DOWN_ARROW:-⯆}
-	(( left > 0 )) && arrows+=${PURE_GIT_UP_ARROW:-⯅ }
+	(( left > 0 )) && arrows+=${PURE_GIT_UP_ARROW:-⯅}
 
 	[[ -n $arrows ]] || return
 	typeset -g REPLY=$arrows
