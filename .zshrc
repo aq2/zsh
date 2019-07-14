@@ -123,7 +123,7 @@
   autoload -U promptinit && promptinit
 	RPROMPT='%F{white}%*'
 	PURE_PROMPT_SYMBOL=
-  prompt pure
+  prompt pura
   prompt_newline='%666v'
   PROMPT=" $PROMPT"
 

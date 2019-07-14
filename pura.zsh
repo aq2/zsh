@@ -1,6 +1,4 @@
-# Pure by Sindre Sorhus
-# https://github.com/sindresorhus/pure
-# MIT License
+# pura zsh prompt, inspired by Pure by Sindre Sorhus https://github.com/sindresorhus/pure
 # hacked nearly to death by angelo
 
 # For my own and others sanity
@@ -627,3 +625,4 @@ prompt_pure_setup() {
 }
 
 prompt_pure_setup "$@"
+
