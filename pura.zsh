@@ -532,7 +532,7 @@ prompt_pure_state_setup() {
 }
 
 
-prompt_pure_setup() {
+prompt_pura_setup() {
 	# Prevent percentage showing up if output doesn't end with a newline.
 	export PROMPT_EOL_MARK=''
 
@@ -624,5 +624,5 @@ prompt_pure_setup() {
 	unset ZSH_THEME
 }
 
-prompt_pure_setup "$@"
+prompt_pura_setup "$@"
 
