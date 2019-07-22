@@ -63,6 +63,7 @@
   alias ..='cd ..'
   alias ll='ls -l'
   alias l.='ls -d .*'
+  alias grok='./grok'
   alias xo='xdg-open'
   alias ssh='color-ssh'
   alias gpus='git push'
