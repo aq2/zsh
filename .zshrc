@@ -122,7 +122,7 @@
 
 #  hacked pure prompt
   autoload -U promptinit && promptinit
-	RPROMPT='%F{white}%*'
+	# RPROMPT='%F{white}%*'
 	PURE_PROMPT_SYMBOL=
   prompt pura
   prompt_newline='%666v'

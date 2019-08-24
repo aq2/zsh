@@ -108,7 +108,11 @@ prompt_pure_preprompt_render() {
 	fi
 
   # Execution time.
-	[[ -n $prompt_pure_cmd_exec_time ]] && preprompt_parts+=('%F{$prompt_pure_colors[execution_time]}${prompt_pure_cmd_exec_time}%f')
+	# [[ -n $prompt_pure_cmd_exec_time ]] && preprompt_parts+=('%F{$prompt_pure_colors[execution_time]}${prompt_pure_cmd_exec_time}%f')
+
+  # my bit
+  export RPS1='%F{yellow}${prompt_pure_cmd_exec_time}%f  %F{white}%*%f'
+
 
 	local cleaned_ps1=$PROMPT
 	local -H MATCH MBEGIN MEND
