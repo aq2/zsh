@@ -58,7 +58,7 @@
   fi
 
 
-#  alias
+# aliarses
   alias xx='exit'
   alias ..='cd ..'
   alias ll='ls -l'
@@ -71,11 +71,12 @@
   alias gadd='git add .'
   alias ping='ping -c 5'
   alias gsta='git status'
+  alias dcc='docker-compose'
   alias gcom='git commit -m'
   alias update='pkcon update'
   alias zeesh='source ~/.zshrc'
-  alias logmeout='pkill -u angelo'
   alias upgrade='sudo apt upgrade'
+  alias logmeout='pkill -u angelo'
   alias upg='apt list --upgradable'
   alias blame='systemd-analyze blame'
   alias gvim='gvim --remote-tab-silent'
@@ -84,7 +85,6 @@
   alias ls='ls --color=auto --group-directories-first'
   alias myvpn='sudo openvpn ~/Nextcloud/serva/dripvpn.ovpn'
   alias glog='git log --pretty="%Cgreen%h  %Cblue%ar%Creset  %s"'
-
 
 # fancy functions
 
@@ -122,7 +122,6 @@
 
 #  hacked pure prompt
   autoload -U promptinit && promptinit
-	# RPROMPT='%F{white}%*'
 	PURE_PROMPT_SYMBOL=
   prompt pura
   prompt_newline='%666v'
